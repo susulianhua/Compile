@@ -1,0 +1,138 @@
+thread    KEYWORDS
+============
+Thread1    IDENTIFIER_LETTER
+============
+line:1
+#    ILLEGAL_STRING
+===========
+features    KEYWORDS
+============
+line:3
+_    ILLEGAL_STRING
+===========
+APPosition_Input    IDENTIFIER_LETTER
+============
+:    SYMBOL
+============
+in    KEYWORDS
+============
+event    KEYWORDS
+============
+data    KEYWORDS
+============
+port    KEYWORDS
+============
+Nav_Types    IDENTIFIER_LETTER
+============
+::    SYMBOL
+============
+Position_GPS    IDENTIFIER_LETTER
+============
+;    SYMBOL
+============
+flows    KEYWORDS
+============
+1    DECIMAL
+============
+flow1    IDENTIFIER_LETTER
+============
+:    SYMBOL
+============
+flow    KEYWORDS
+============
+path    KEYWORDS
+============
+signal    IDENTIFIER_LETTER
+============
+->    SYMBOL
+============
+result1    IDENTIFIER_LETTER
+============
+;    SYMBOL
+============
+properties    KEYWORDS
+============
+dispatch_protocol    IDENTIFIER_LETTER
+============
+=>    SYMBOL
+============
+access    KEYWORDS
+============
+50.0    DECIMAL
+============
+;    SYMBOL
+============
+end    KEYWORDS
+============
+Thread1    IDENTIFIER_LETTER
+============
+;    SYMBOL
+============
+thread    KEYWORDS
+============
+Thread2    IDENTIFIER_LETTER
+============
+features    KEYWORDS
+============
+line:12
+_    ILLEGAL_STRING
+===========
+APPosition_Input    IDENTIFIER_LETTER
+============
+:    SYMBOL
+============
+in    KEYWORDS
+============
+event    KEYWORDS
+============
+data    KEYWORDS
+============
+port    KEYWORDS
+============
+Nav_Types    IDENTIFIER_LETTER
+============
+::    SYMBOL
+============
+Position_GPS    IDENTIFIER_LETTER
+============
+;    SYMBOL
+============
+flows    KEYWORDS
+============
+flow1    IDENTIFIER_LETTER
+============
+:    SYMBOL
+============
+flow    KEYWORDS
+============
+path    KEYWORDS
+============
+signal    IDENTIFIER_LETTER
+============
+->    SYMBOL
+============
+result1    IDENTIFIER_LETTER
+============
+;    SYMBOL
+============
+properties    KEYWORDS
+============
+dispatch_protocol    IDENTIFIER_LETTER
+============
+=>    SYMBOL
+============
+access    KEYWORDS
+============
+line:16
+.    ILLEGAL_STRING
+===========
+01    DECIMAL
+============
+;    SYMBOL
+============
+end    KEYWORDS
+============
+Thread2    IDENTIFIER_LETTER
+============
+;    SYMBOL
+============
