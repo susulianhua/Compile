@@ -21,7 +21,7 @@ public class Lexical {
         Vector<String> last = new Vector<>();
 
         //存储测试文件地址
-        String pathname1 = "D:\\test1.txt";
+        String pathname1 = "D:\\test.txt";
         String pathname2 = "D:\\test2.txt";
         String pathname3 = "D:\\test3.txt";
         String[] pathname = {pathname1, pathname2, pathname3};

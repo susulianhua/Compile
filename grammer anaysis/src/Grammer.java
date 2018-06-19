@@ -8,6 +8,7 @@ public class Grammer {
 
     //将词法分析结果转化为队列
     public LinkedList<Result> queue = new LinkedList<>();
+    Vector<String> errorlist = new Vector<>();
     //packageName 最后多余的identifer个数，即最后一个::后面identifer的个数
     // 作为全局变量，使reference和package均能访问到此变量的值
     public int package_identifier_cnt = 0;
@@ -58,18 +59,17 @@ public class Grammer {
 
         //match  thread
         if(!queue.getFirst().opt_str.equals("thread")){
-            System.out.println("error: the first is not thread");
-            while (!queue.getFirst().opt_str.equals(";")){
+            errorlist.addElement("error: the first word is not thread");
+            while (!queue.getFirst().opt_str.equals("thread") ){
                 queue.pop();
             }
-            queue.pop();
             return null;
         }
         else queue.pop();
 
         //match  identifier
         if(!queue.getFirst().STYLE.equals("IDENTIFIER_LETTER")){
-            System.out.println("error:ThreadSpec the first IDENTIFIER");
+            errorlist.addElement("error:ThreadSpec the second is not IDENTIFIER");
             while (!queue.getFirst().opt_str.equals(";")){
                 queue.pop();
             }
@@ -152,10 +152,11 @@ public class Grammer {
                     queue.pop();
                 }
                 queue.pop();
+                errorlist.add("Association is null");
                 return null;
             }
             if(!queue.getFirst().opt_str.equals(";")){
-                System.out.println("error: threadspec properties fenhao");
+               errorlist.addElement("error: threadspec properties the last is not fenhao");
                 while (!queue.getFirst().opt_str.equals(";")){
                     queue.pop();
                 }
@@ -172,7 +173,7 @@ public class Grammer {
 
         //match  end
         if(!queue.getFirst().opt_str.equals("end")){
-            System.out.println("error: threadSpec  end");
+            errorlist.addElement("error: threadSpec  end");
             while (!queue.getFirst().opt_str.equals(";")){
                 queue.pop();
             }
@@ -187,7 +188,7 @@ public class Grammer {
 
             //match  INEDTIFIER
             if(!queue.getFirst().STYLE.equals("IDENTIFIER_LETTER")){
-                System.out.println("erroer: ThreadSpec IDENTIFIER");
+                errorlist.addElement("error:ThreadSpec the last IDENTIFIER");
                 while (!queue.getFirst().opt_str.equals(";")){
                     queue.pop();
                 }
@@ -205,7 +206,7 @@ public class Grammer {
 
             //match  ;
             if(!queue.getFirst().opt_str.equals(";")){
-                System.out.println("error: threadSpec the last ;");
+                errorlist.addElement("error: threadSpec the last ;");
                 while (!queue.getFirst().opt_str.equals(";")){
                     queue.pop();
                 }
@@ -248,7 +249,7 @@ public class Grammer {
             else {
             //match  none
              if (!queue.getFirst().opt_str.equals("none")) {
-                System.out.println("error: FeatureSpec none");
+                errorlist.addElement(" FeatureSpec is null");
 
                 return null;
             }
@@ -258,7 +259,7 @@ public class Grammer {
 
                     //mathc ;
                     if (!queue.getFirst().opt_str.equals(";")) {
-                        System.out.println("error: FeatureSpec ;");
+                        errorlist.addElement("error: FeatureSpec none next is not ;");
                         return null;
                     } else {
                         treeNode fenhao = new treeNode();
@@ -300,7 +301,7 @@ public class Grammer {
         }
         //match  none
         else if(!queue.getFirst().opt_str.equals("none")){
-            System.out.println("error: FlowSpec none");
+            errorlist.addElement(" FlowSpec is null");
             return null;
         }
         else {
@@ -308,7 +309,7 @@ public class Grammer {
 
             //mathc ;
             if(!queue.getFirst().opt_str.equals(";")){
-                System.out.println("error: FeatureSpec ;");
+                errorlist.addElement("error:FeatureSpec none next is not ;");
                 return null;
             }
             else{
@@ -330,7 +331,7 @@ public class Grammer {
         //match  [identifier::]
         if(!queue.getFirst().opt_str.equals("none")) {
             if (!queue.getFirst().STYLE.equals("IDENTIFIER_LETTER")) {
-                System.out.println("erroer: Association first is not IDENTIFIER");
+                errorlist.addElement("erroer: Association first is not IDENTIFIER");
                 return null;
             }
             if ( queue.get(1).opt_str.equals("::")) {
@@ -347,7 +348,7 @@ public class Grammer {
                     for(int i = 0; i < cha.size();i++){
                         queue.offer(cha.get(i));
                     }
-                    System.out.println("error:Association no IDENTIFIERLETTER Split");
+                    errorlist.addElement("error:Association no IDENTIFIERLETTER Split");
                     return null;
                 } else {
                     treeNode identifier = new treeNode();
@@ -363,7 +364,6 @@ public class Grammer {
                         for(int i = 0; i < cha.size();i++){
                             queue.offer(cha.get(i));
                         }
-                        System.out.println("error: Splitter is null");
                         return null;
                     }
                 }
@@ -382,7 +382,6 @@ public class Grammer {
                     for(int i = 0; i < cha.size();i++){
                         queue.offer(cha.get(i));
                     }
-                    System.out.println("error: Splitter is null");
                     return null;
                 }
             }
@@ -401,7 +400,7 @@ public class Grammer {
                 for(int i = 0; i < cha.size();i++){
                     queue.offer(cha.get(i));
                 }
-                System.out.println("error: Association have no access");
+                errorlist.addElement("error:Association have no access");
                 return null;
             } else {
                 treeNode access = new treeNode();
@@ -410,7 +409,7 @@ public class Grammer {
                 queue.pop();
                 //match decimal
                 if (!queue.getFirst().STYLE.equals("DECIMAL") ) {
-                    System.out.println("error: Association decimal or none is wrong");
+                    errorlist.addElement("error: Association have no decimal");
                     queue.clear();
                     for(int i = 0; i < cha.size();i++){
                         queue.offer(cha.get(i));
@@ -494,6 +493,7 @@ public class Grammer {
                         for(int i = 0; i < cha.size();i++){
                             queue.offer(cha.get(i));
                         }
+                        errorlist.addElement("error: PortSpec have no }");
                         return null;
                     }
                     else {
@@ -516,6 +516,7 @@ public class Grammer {
                     for(int i = 0; i < cha.size();i++){
                         queue.offer(cha.get(i));
                     }
+                    errorlist.addElement("error: PortSpec last is not ;");
                     return null;
                 }
 
@@ -595,6 +596,7 @@ public class Grammer {
                             for(int i = 0; i < cha.size();i++){
                                 queue.offer(cha.get(i));
                             }
+                            errorlist.addElement("error: ParameterSpec have no }");
                             return null;
                         }
                         else {
@@ -610,6 +612,7 @@ public class Grammer {
                         for(int i = 0; i < cha.size();i++){
                             queue.offer(cha.get(i));
                         }
+                        errorlist.addElement("eror: ParameterSpec the last is not ;");
                         return null;
                     }
 
@@ -651,7 +654,10 @@ public class Grammer {
             queue.pop();
             return iotype;
         }
-        else return null;
+        else {
+            errorlist.addElement("error: IOtype is null");
+            return null;
+        }
 
     }
 
@@ -672,14 +678,8 @@ public class Grammer {
             reference = Reference_grammer();
             if(reference != null){
                 porttype.child.offer(reference);
-            }else {
-                queue.clear();
-                for(int i = 0; i < cha.size();i++){
-                    queue.offer(cha.get(i));
-                }
-                return null;
             }
-            return porttype;
+                return porttype;
         }
 
         //match event port
@@ -710,6 +710,9 @@ public class Grammer {
             return porttype;
         }
         else {
+            if(queue.getFirst().opt_str.equals("data" )|| queue.getFirst().opt_str.equals("event")){
+                errorlist.add("error:PortType is wrong");
+            }
             return null;
         }
     }
@@ -1069,15 +1072,23 @@ public class Grammer {
 
     }
 
+    String kongge = "   ";
+    String lastkongge = "  ";
     //打印
     public void grammer_print(treeNode root){
         if(root != null) {
             if(root.data.equals("thread")){
                 append(out1,"=======================");
-                append(out1,root.data + " ");
+                append(out1,root.data );
             }
             else {
-                append(out1,root.data + " ");
+                append(out1,lastkongge + root.data);
+                if(root.child.isEmpty()){
+                    lastkongge = lastkongge.substring(lastkongge.length() - 2);
+                }
+                else {
+                    lastkongge += kongge;
+                }
             }
         }
         while (!root.child.isEmpty()){
@@ -1086,6 +1097,12 @@ public class Grammer {
                 grammer_print(root.child.get(i));
             }
             break;
+        }
+    }
+    public void grammer_error_print(){
+        append(out1,"============errorlist====================");
+        for(int i = 0; i < errorlist.size(); i++){
+            append(out1,errorlist.get(i));
         }
     }
 

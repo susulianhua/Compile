@@ -35,6 +35,7 @@ public class Main {
 
         treeNode root = grammer.grammer_solve();
         grammer.grammer_print(root);
+        grammer.grammer_error_print();
 
 
 
